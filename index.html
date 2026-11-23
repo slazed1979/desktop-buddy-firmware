@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desktop Buddy Installer</title>
+<script type="module" src="https://unpkg.com/esp-web-tools@10.4.0/dist/web/install-button.js?module"></script>
+<style>
+  :root { --bg:#0b0f14; --card:#141b24; --text:#e8eef5; --muted:#8a99a8; --blue:#3B9EFF; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+  main { max-width:620px; margin:0 auto; padding:40px 16px 64px; }
+  .face { width:160px; height:160px; margin:0 auto 24px; border-radius:50%; background:#000; position:relative; box-shadow:0 0 0 6px #1c2633; }
+  .eye { position:absolute; top:44px; width:30px; height:66px; border-radius:15px; background:var(--blue); animation:blink 5s infinite; }
+  .eye::after { content:""; position:absolute; top:10px; left:6px; width:9px; height:9px; border-radius:50%; background:#fff; }
+  .eye.l { left:44px; } .eye.r { right:44px; }
+  @keyframes blink { 0%,94%,100% { transform:scaleY(1); } 97% { transform:scaleY(.1); } }
+  h1 { text-align:center; margin:0 0 4px; font-size:28px; }
+  .sub { text-align:center; color:var(--muted); margin:0 0 32px; }
+  .card { background:var(--card); border-radius:14px; padding:20px; margin-bottom:16px; }
+  ol { margin:0; padding-left:20px; } li { margin:6px 0; }
+  .btn { text-align:center; margin:28px 0; }
+  esp-web-install-button button { background:var(--blue); color:#fff; border:0; border-radius:999px; padding:14px 30px; font-size:17px; font-weight:600; cursor:pointer; }
+  .muted { color:var(--muted); font-size:14px; }
+  #ver { color:var(--blue); }
+</style>
+</head>
+<body>
+<main>
+  <div class="face" aria-hidden="true"><div class="eye l"></div><div class="eye r"></div></div>
+  <h1>Desktop Buddy</h1>
+  <p class="sub">Firmware für das Elecrow CrowPanel 1,46″ Rotary Display · Version <span id="ver">…</span></p>
+
+  <div class="card">
+    <ol>
+      <li>Öffne diese Seite in <b>Chrome</b> oder <b>Edge</b> am Computer.</li>
+      <li>Verbinde den Buddy per USB-C-Kabel.</li>
+      <li>Klicke auf <b>Installieren</b> und wähle den Anschluss (meist „USB JTAG/serial debug unit“).</li>
+      <li>Nach dem Neustart öffnet er das WLAN „Buddy-Setup“. Verbinde dich mit dem Handy und trage dein WLAN und deinen Ort ein.</li>
+    </ol>
+  </div>
+
+  <div class="btn">
+    <esp-web-install-button manifest="manifest.json">
+      <button slot="activate">Installieren</button>
+      <span slot="unsupported">Dein Browser kann leider nicht per USB flashen. Nimm Chrome oder Edge am Computer.</span>
+      <span slot="not-allowed">Die Seite muss über HTTPS geöffnet werden.</span>
+    </esp-web-install-button>
+  </div>
+
+  <p class="muted">Ist der Buddy schon im WLAN, braucht es kein Kabel: Knopf drücken → Menü → „Update“.
+  Neue Versionen erscheinen hier automatisch.</p>
+</main>
+<script>
+  fetch("latest.json").then(r => r.json()).then(j => { document.getElementById("ver").textContent = j.version; })
+    .catch(() => { document.getElementById("ver").textContent = "?"; });
+</script>
+</body>
+</html>
