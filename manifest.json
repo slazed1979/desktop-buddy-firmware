@@ -1,8 +1,8 @@
 {
   "name": "Desktop Buddy",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "new_install_prompt_erase": true,
   "builds": [
-    { "chipFamily": "ESP32-S3", "parts": [ { "path": "firmware/0.7.0/factory.bin", "offset": 0 } ] }
+    { "chipFamily": "ESP32-S3", "parts": [ { "path": "firmware/0.8.0/factory.bin", "offset": 0 } ] }
   ]
 }
