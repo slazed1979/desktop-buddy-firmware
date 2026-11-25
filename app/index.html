@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0F14">
+<title>Buddy</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<main id="pair" class="screen" hidden>
+  <h1>Buddy</h1>
+  <p>Diese App ist noch nicht mit Buddy verbunden.</p>
+  <ol>
+    <li>Handy ins selbe WLAN wie Buddy.</li>
+    <li><b>http://buddy.local</b> öffnen (oder Buddys IP aus Menü › Update).</li>
+    <li>Auf <b>„Handy-App verbinden“</b> tippen.</li>
+  </ol>
+</main>
+
+<div id="app" hidden>
+  <main id="tab-start" class="screen">
+    <header class="top">
+      <div>
+        <h1>Buddy</h1>
+        <p class="status"><span id="dot" class="dot"></span><span id="online">Verbinde …</span></p>
+      </div>
+    </header>
+    <div class="face" role="img" aria-label="Buddys Gesicht"><span class="eye"></span><span class="eye"></span></div>
+    <p id="moodText" class="center muted">&nbsp;</p>
+    <section class="grid" aria-label="Status">
+      <div class="tile"><span class="label">Stimmung</span><span id="mood" class="value">–</span><div class="bar"><div id="moodBar"></div></div></div>
+      <div class="tile"><span class="label">Hunger</span><span id="hunger" class="value">–</span><span id="lastFed" class="label"></span></div>
+      <div class="tile"><span class="label">Wetter bei Buddy</span><span id="weather" class="value">–</span></div>
+      <div class="tile"><span class="label">ISS entfernt</span><span id="iss" class="value">–</span></div>
+    </section>
+    <section class="grid" aria-label="Schnellaktionen">
+      <button class="big orange" data-go="feed">Füttern</button>
+      <button class="big blue" data-go="msg">Nachricht</button>
+      <button class="big" id="timer">Timer 10 min</button>
+      <button class="big" id="dnd" aria-pressed="false">Nicht stören</button>
+    </section>
+  </main>
+
+  <main id="tab-feed" class="screen" hidden>
+    <header class="top"><h1>Füttern</h1></header>
+    <section class="tile wide">
+      <div class="row"><span id="hunger2" class="value">–</span><span id="lastFed2" class="label"></span></div>
+      <p class="label">Ab 5 h ohne Essen wird er hungrig, ab 10 h hat er großen Hunger.</p>
+    </section>
+    <p class="muted">Was bekommt Buddy?</p>
+    <section class="grid" id="foods" aria-label="Essen wählen"></section>
+    <button class="big orange full" id="feedBtn">Füttern</button>
+    <p class="center label">Drei Mahlzeiten in 30 Minuten machen ihn krank.</p>
+  </main>
+
+  <main id="tab-msg" class="screen" hidden>
+    <header class="top"><h1>Nachricht an Buddy</h1></header>
+    <p class="muted">Erscheint auf Buddys Bildschirm, er freut sich und die LEDs blinken.</p>
+    <section class="chips" id="presets" aria-label="Schnelle Nachrichten"></section>
+    <label for="text" class="muted">Eigene Nachricht</label>
+    <textarea id="text" rows="3" maxlength="80"></textarea>
+    <p class="label right"><span id="count">0</span> / 80</p>
+    <button class="big blue full" id="sendBtn">Senden</button>
+    <h2 class="label">Zuletzt gesendet</h2>
+    <ul id="history" class="history"></ul>
+  </main>
+
+  <nav class="tabs" aria-label="Hauptnavigation">
+    <button data-go="start" aria-current="page">Start</button>
+    <button data-go="feed">Füttern</button>
+    <button data-go="msg">Nachricht</button>
+  </nav>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="vendor/mqtt-5.10.1.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
